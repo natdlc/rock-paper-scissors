@@ -39,6 +39,7 @@ function roundPlay(playerSelection, computerSelection) {
 }
 
 function game() {
+    checkPlayerPrompt();
     computerSelection = computerPlay();
     let result = roundPlay(playerSelection, computerSelection);
     console.log(result);
@@ -47,23 +48,38 @@ function game() {
         result.includes('Lose') ? computerScore++ : drawCounter++;
 }
 
+let gameStatus = 'active';
 
-for (let i = 0; i < 5; i++) {
+function checkPlayerPrompt() {
     playerSelection = prompt('Rock, paper, or scissors?');
-    if (playerSelection === null || playerSelection === undefined) {
-        console.log(playerSelection);
-        i = 0;
+    if (playerSelection === null || playerSelection === undefined || playerSelection === '') {
+        if (confirm('Invalid selection, try again?')) {
+            checkPlayerPrompt();
+        }
+        else {
+            alert('You\'ve exited the game');
+            gameStatus === 'end';
+            return;
+        }
     }
-    game();
-    if (i === 4) {
+    else {
+        return playerSelection;
+    }
+}
 
-        console.log(`Player's score: ${playerScore}`);
-        console.log(`Computer's score: ${computerScore}`);
-        console.log(`Draw rounds: ${drawCounter}`);
-
-        if (playerScore > computerScore) { console.log('PLAYER WINS') }
-        else if (playerScore === computerScore) { console.log('DRAW!') }
-        else if (computerScore > playerScore) { console.log('COMPUTER WINS') }
-        else { console.log('DRAW!') }
+if (gameStatus === 'active') {
+    for (let i = 0; i < 5; i++) {
+        game();
+        if (i === 4) {
+    
+            console.log(`Player's score: ${playerScore}`);
+            console.log(`Computer's score: ${computerScore}`);
+            console.log(`Draw rounds: ${drawCounter}`);
+    
+            if (playerScore > computerScore) { console.log('PLAYER WINS') }
+            else if (playerScore === computerScore) { console.log('DRAW!') }
+            else if (computerScore > playerScore) { console.log('COMPUTER WINS') }
+            else { console.log('DRAW!') }
+        };
     };
-};
+}
