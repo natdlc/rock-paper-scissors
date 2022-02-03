@@ -2,6 +2,7 @@ let playerSelection, computerSelection;
 let playerScore = 0;
 let computerScore = 0;
 let drawCounter = 0;
+let gameStatus = 'active';
 
 function computerPlay() {
     let randomNum = Math.floor(Math.random() * 3);
@@ -11,7 +12,6 @@ function computerPlay() {
 }
 
 function roundPlay(playerSelection, computerSelection) {
-    playerSelection = playerSelection.toLowerCase();
     if (playerSelection === 'rock') {
         return computerSelection === 'paper' ? 
                 'You Lose! Paper beats Rock' :
@@ -34,7 +34,8 @@ function roundPlay(playerSelection, computerSelection) {
     }
 
     else {
-        console.log('Invalid entry, please try again.');
+        gameStatus = 'end';
+        return;
     }
 }
 
@@ -45,32 +46,53 @@ function game() {
     console.log(result);
 
     return result.includes('Win') ? playerScore++ :
-        result.includes('Lose') ? computerScore++ : drawCounter++;
+        result.includes('Lose') ? computerScore++ : 
+        result.includes('Game') ? result : drawCounter++;
 }
-
-let gameStatus = 'active';
 
 function checkPlayerPrompt() {
     playerSelection = prompt('Rock, paper, or scissors?');
-    if (playerSelection === null || playerSelection === undefined || playerSelection === '') {
+    if (typeof(playerSelection) === typeof('.')) {
+        playerSelection = playerSelection.toLowerCase();
+        if (playerSelection === 'rock' || playerSelection === 'paper' || playerSelection === 'scissors') {
+            return;
+        }
+        else {
+            if (confirm('Invalid selection, try again?')) {
+                gameStatus = 'active';
+                checkPlayerPrompt();
+            }
+            else {
+                alert('You\'ve exited the game');
+                gameStatus = 'end';
+                return;
+            }
+        }
+    }
+    else if (playerSelection === null || playerSelection === undefined || playerSelection === '') {
         if (confirm('Invalid selection, try again?')) {
+            gameStatus = 'active';
             checkPlayerPrompt();
         }
         else {
             alert('You\'ve exited the game');
-            gameStatus === 'end';
+            gameStatus = 'end';
             return;
         }
     }
     else {
-        return playerSelection;
+        playerSelection = playerSelection.toLowerCase();
+        return;
     }
 }
 
 if (gameStatus === 'active') {
     for (let i = 0; i < 5; i++) {
         game();
-        if (i === 4) {
+        if (gameStatus === 'end') {
+            i = 5;
+        }
+        else if (i === 4) {
     
             console.log(`Player's score: ${playerScore}`);
             console.log(`Computer's score: ${computerScore}`);
