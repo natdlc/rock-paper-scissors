@@ -4,6 +4,7 @@ let computerScore = 0;
 let drawCounter = 0;
 let gameStatus = 'active';
 
+//generate random computer selection
 function computerPlay() {
     let randomNum = Math.floor(Math.random() * 3);
     return randomNum === 0 ? 'rock' :
@@ -11,6 +12,7 @@ function computerPlay() {
     'scissors';
 }
 
+//return winner or loser of round, determine if game ends
 function roundPlay(playerSelection, computerSelection) {
     if (playerSelection === 'rock') {
         return computerSelection === 'paper' ? 
@@ -39,6 +41,7 @@ function roundPlay(playerSelection, computerSelection) {
     }
 }
 
+//prompt user selection, 
 function game() {
     checkPlayerPrompt();
     computerSelection = computerPlay();
