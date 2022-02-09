@@ -20,6 +20,7 @@ body {
     display: flex;
     flex-direction: column;
     height: 50%;
+    min-height: 500px;
     justify-content: space-around;
     align-content: center;
     width: 50%;
@@ -102,7 +103,7 @@ main {
 
 @media (max-width: 500px) {
     body {
-        font-size: 10px;
+        font-size: 8px;
         width: 100%;
     }
 
@@ -118,6 +119,10 @@ main {
     }
 
     .reset-btn {
-        font-size: 15px;
+        font-size: 10px;
+    }
+
+    .btn {
+        font-size: 8px;
     }
 }
