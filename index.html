@@ -1,10 +1,41 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <script src="script.js"></script>
-    </head>
-    <body>
-        
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="title">
+        <h1>ROCK PAPER SCISSORS</h1>
+    </div>
+
+    <main>
+        <div class="weapons-box">
+            <p>Choose selection: </p>
+            <div class="selection">
+                <button class="btn">Rock</button>
+                <button class="btn">Paper</button>
+                <button class="btn">Scissors</button>
+            </div>
+        </div>
+
+        <div class="game-results">
+            <div class="results-1">
+                <p class="player-selection"></p>
+                <p class="computer-selection"></p>
+                <p class="round-result-text"></p>
+            </div>
+    
+            <div class="results-2">
+                <p class='player-score'></p>
+                <p class='computer-score'></p>
+                <p class='game-winner'></p>
+            </div>
+        </div>
+    </main>
+</body>
 </html>

@@ -2,7 +2,7 @@ let playerSelection, computerSelection;
 let playerScore = 0;
 let computerScore = 0;
 let drawCounter = 0;
-let gameStatus = 'active';
+let gameStatus = '';
 
 //generate random computer selection
 function computerPlay() {
@@ -33,20 +33,60 @@ function roundPlay(playerSelection, computerSelection) {
                 'You Win! Scissors beats Paper' : 'Draw! You\'re both Scissors.'
     }
     else {
-        gameStatus = 'end';
+        gameStatus = '';
         return;
     }
 }
 
+const buttons = document.querySelectorAll('button.btn');
+buttons.forEach(button => button.addEventListener('click',game));
+
 //prompt user selection, 
 function game() {
-    checkPlayerPrompt();
+    reset.classList.remove('reset-btn-off');
+    if (this.textContent.toLowerCase() === 'rock') playerSelection = 'rock';
+    else if (this.textContent.toLowerCase() === 'paper') playerSelection = 'paper';
+    else if (this.textContent.toLowerCase() === 'scissors') playerSelection = 'scissors';
+    
+    gameStatus = 'active';
+    
     computerSelection = computerPlay();
+    
+    const playerSelectionText = document.querySelector('.player-selection');
+    const computerSelectionText = document.querySelector('.computer-selection');
+    playerSelectionText.textContent = `You are ${playerSelection.toUpperCase()}`;
+    computerSelectionText.textContent = `Computer is ${computerSelection.toUpperCase()}`;
+    
     let result = roundPlay(playerSelection, computerSelection);
-    console.log(result);
-    return result.includes('Win') ? playerScore++ :
+
+    const roundResultText = document.querySelector('.round-result-text'); 
+    roundResultText.textContent = result;
+
+    result.includes('Win') ? playerScore++ :
         result.includes('Lose') ? computerScore++ : 
         result.includes('Game') ? result : drawCounter++;
+    
+    const playerScoreText = document.querySelector('.player-score');
+    const computerScoreText = document.querySelector('.computer-score');
+    const gameWinnerText = document.querySelector('.game-winner');
+
+    playerScoreText.textContent = `Player's score: ${playerScore}`;
+    computerScoreText.textContent = `Computer's score: ${computerScore}`;
+
+    if(gameStatus) mainSection.appendChild(reset);
+
+    reset.addEventListener('click',() => {
+        playerScoreText.textContent = '';
+        computerScoreText.textContent = ''
+        roundResultText.textContent = '';
+        playerSelectionText.textContent = '';
+        computerSelectionText.textContent = '';
+        playerScore = computerScore = drawCounter = 0;
+        playerSelection = '';
+        computerSelection = '';
+        reset.classList.add('reset-btn-off');
+    })
+
 }
 
 function checkPlayerPrompt() {
@@ -85,20 +125,12 @@ function checkPlayerPrompt() {
     }
 }
 
-if (gameStatus === 'active') {
-    for (let i = 0; i < 5; i++) {
-        game();
-        if (gameStatus === 'end') {
-            i = 5;
-        }
-        else if (i === 4) {
-            console.log(`Player's score: ${playerScore}`);
-            console.log(`Computer's score: ${computerScore}`);
-            console.log(`Draw rounds: ${drawCounter}`);
-            if (playerScore > computerScore) { console.log('PLAYER WINS') }
-            else if (playerScore === computerScore) { console.log('DRAW!') }
-            else if (computerScore > playerScore) { console.log('COMPUTER WINS') }
-            else { console.log('DRAW!') }
-        };
-    };
+const mainSection = document.querySelector('main');
+
+let reset = document.createElement('button');
+reset.classList.add('reset-btn');
+reset.textContent = 'RESET'
+
+function resetGame() {
+
 }
