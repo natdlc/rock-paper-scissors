@@ -21,6 +21,8 @@ body {
     flex-direction: column;
     height: 50%;
     justify-content: space-around;
+    align-content: center;
+    width: 50%;
 }
 
 .title, main {
@@ -31,6 +33,7 @@ body {
 .title {
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 main {
@@ -65,7 +68,7 @@ main {
     gap: 50px;
 }
 
-.results-1, .results-2 {
+.results-1 {
     display: flex;
     flex-flow: column;
     gap: 12px;
@@ -75,12 +78,41 @@ main {
     display: none;
 }
 
+.reset-btn {
+    padding: 5px;
+    width: 30%;
+    align-self: center;
+
+}
+
+.selections-box {
+    display: flex;
+    justify-content: space-around;
+}
+
+.round-result-text {
+    align-self: center;
+}
+
+.results-2 {
+    display: flex;
+    justify-content: space-around;
+}
+
 @media (max-width: 500px) {
     body {
         font-size: 10px;
+        width: 100%;
     }
 
     h1 {
         font-size: 15px;
+    }
+
+    .results-2 {
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        gap: 15px;
     }
 }
